@@ -8,3 +8,7 @@
 ## Setup
 
 - `npm install`
+
+## Comandos para execução
+
+- `npm run dev`
