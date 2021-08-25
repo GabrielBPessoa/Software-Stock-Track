@@ -9,6 +9,8 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 
 const run = async () => {
   try {
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
     app.use(router);
     console.log(`\nStarting SST Core server in ${NODE_ENV}`);
     app.listen(PORT, () => {
