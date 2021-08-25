@@ -12,5 +12,13 @@
 ## Comandos para execução
 
 - `docker-compose up --build -d`
-- `knex migrate:make {NOME DA MIGRATION} --migrations-directory data/migrations`
 - `npm run dev`
+
+## Migrations
+
+- Criar uma nova migration:
+- `knex migrate:make {NOME DA MIGRATION} --migrations-directory data/migrations`
+- Atualizar as migrations:
+- `npm run migrate`
+- Fazer downgrade das migrations:
+- `npm run migrateDown`
