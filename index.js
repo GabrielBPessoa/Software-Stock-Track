@@ -10,7 +10,6 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 const run = async () => {
   try {
     app.use(router);
-    console.log("TESTE GIT COMMIT");
     console.log(`\nStarting SST Core server in ${NODE_ENV}`);
     app.listen(PORT, () => {
       const date = new Date();
