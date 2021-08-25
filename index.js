@@ -1,11 +1,11 @@
-import express from "express";
-import dotenv from "dotenv";
-import { router } from "./src/resources/routes.js";
+import express from 'express'
+import dotenv from 'dotenv'
+import { router } from './src/resources/routes.js'
 
-dotenv.config();
-const app = express();
-const PORT = process.env.PORT || 3000;
-const NODE_ENV = process.env.NODE_ENV || "development";
+dotenv.config()
+const app = express()
+const PORT = process.env.PORT || 3000
+const NODE_ENV = process.env.NODE_ENV || 'development'
 
 const run = async () => {
   try {
@@ -22,4 +22,4 @@ const run = async () => {
   }
 };
 
-run();
+run()
