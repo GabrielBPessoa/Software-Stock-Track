@@ -13,47 +13,46 @@ router.get('/', function (req, res) {
 })
 
 router.post(
-	'/api/produtos',
+	'/produtos',
 	produtoController.createProduto,
 	errorHandling.handleError
 )
 
 router.get(
-	'/api/produtos',
+	'/produtos',
 	produtoController.getAllProdutos,
 	errorHandling.handleError
 )
 
 router.get(
-	'/api/produto/:id',
+	'/produto/:id',
 	produtoController.getProdutoById,
 	errorHandling.handleError
 )
 
 router.put(
-	'/api/produto/:id',
+	'/produto/:id',
 	produtoController.updateProduto,
 	errorHandling.handleError
 )
 router.post(
-	'/api/entrada/produto',
+	'/entrada/produto',
 	entradaProdController.createEntradaProd,
 	errorHandling.handleError
 )
 router.get(
-	'/api/entrada/produto',
+	'/entrada/produto',
 	entradaProdController.getAllEntradaProdutos,
 	errorHandling.handleError
 )
 router.get(
-	'/api/entrada/produto/:id',
+	'/entrada/produto/:id',
 	entradaProdController.getEntradaProdutoById,
 	errorHandling.handleError
 )
 router.put(
-	'/api/entrada/produto/:id',
+	'/entrada/produto/:id',
 	entradaProdController.updateEntradaProduto,
 	errorHandling.handleError
 )
 export { router }
-

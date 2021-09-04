@@ -58,6 +58,16 @@ class UserService {
 			throw new Error('Something went wrong in updateUserService')
 		}
 	}
+	async getUserByEmail(email) {
+		try {
+			const userDbModules = new UserDbModules()
+			const user = await userDbModules.getUserByEmail(email)
+			return user
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getUserByEmailService')
+		}
+	}
 }
 
 export { UserService }

@@ -75,6 +75,15 @@ class UserDbModules {
 			throw new Error('Something went wrong in getUsers')
 		}
 	}
+	async getUserByEmail(email) {
+		try {
+			const user = dbConnect('user').where('email', email).first()
+			return user
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getUserByEmail')
+		}
+	}
 }
 
 export { UserDbModules }
