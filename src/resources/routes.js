@@ -2,11 +2,15 @@ import { Router } from 'express'
 import { ProdutoController } from '../controllers/produtoController.js'
 import { ErrorHandling } from '../middlewares/errorHandling.js'
 import { EntradaProdController } from '../controllers/entradaProdController.js'
+import { ValidateBody } from '../middlewares/validateSchema.js'
+import { ProdutoSchema } from '../validators/produtoYupSchema.js'
+import { EntradaProdSchema } from '../validators/entradaProdYupSchema.js'
 
 const router = Router()
 const produtoController = new ProdutoController()
 const errorHandling = new ErrorHandling()
 const entradaProdController = new EntradaProdController()
+const validateBody = new ValidateBody()
 
 router.get('/', function (req, res) {
 	res.send('Hello World')
@@ -14,6 +18,7 @@ router.get('/', function (req, res) {
 
 router.post(
 	'/produtos',
+	validateBody.validateSchema(ProdutoSchema),
 	produtoController.createProduto,
 	errorHandling.handleError
 )
@@ -37,6 +42,7 @@ router.put(
 )
 router.post(
 	'/entrada/produto',
+	validateBody.validateSchema(EntradaProdSchema),
 	entradaProdController.createEntradaProd,
 	errorHandling.handleError
 )
