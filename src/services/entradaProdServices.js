@@ -12,11 +12,13 @@ class entradaProdService {
 			if (!isExpirationDateValid) {
 				return false
 			}
+			const parsedDataValidade =
+				commomModules.parseDateString(dataValidade)
 			const EntradaProd = new entradaProdDbModules()
 			const createdentradaProd = await EntradaProd.createEntradaProd(
 				nome,
 				lote,
-				dataValidade,
+				parsedDataValidade,
 				funcionario
 			)
 			return createdentradaProd
