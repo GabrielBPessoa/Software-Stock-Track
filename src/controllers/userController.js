@@ -1,9 +1,19 @@
 import { UserService } from '../services/userServices.js'
+import { UserDbModules } from '../modules/userDbModules.js'
 
 class UserController {
 	async createUser(req, res, next) {
 		try {
 			const userService = new UserService()
+			const userDbModules = new UserDbModules()
+			const checkEmail = await userDbModules.getUserByEmail(
+				req.body.email
+			)
+			if (checkEmail) {
+				return res.status(400).send({
+					message: 'Email already exists',
+				})
+			}
 			const createdUser = await userService.createUser(req.body)
 			return res.status(201).json(createdUser)
 		} catch (err) {
