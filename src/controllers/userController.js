@@ -57,6 +57,15 @@ class UserController {
 	async updateUser(req, res, next) {
 		try {
 			const userService = new UserService()
+			const userDbModules = new UserDbModules()
+			const checkEmail = await userDbModules.getUserByEmail(
+				req.body.email
+			)
+			if (checkEmail) {
+				return res.status(400).send({
+					message: 'Email already exists',
+				})
+			}
 			const updatedUser = await userService.updateUser(
 				req.params.id,
 				req.body
