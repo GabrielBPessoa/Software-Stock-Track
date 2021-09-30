@@ -5,7 +5,7 @@ class entradaProdService {
 	async createEntradaProd(entradaProdData) {
 		try {
 			const commomModules = new CommonModules()
-			const { nome, lote, dataValidade } = entradaProdData
+			const { nome, lote, dataValidade, funcionario } = entradaProdData
 			const isExpirationDateValid = await commomModules.validateDate(
 				dataValidade
 			)
@@ -16,7 +16,8 @@ class entradaProdService {
 			const createdentradaProd = await EntradaProd.createEntradaProd(
 				nome,
 				lote,
-				dataValidade
+				dataValidade,
+				funcionario
 			)
 			return createdentradaProd
 		} catch (err) {

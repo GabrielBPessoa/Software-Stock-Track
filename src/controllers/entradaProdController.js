@@ -3,9 +3,16 @@ import { entradaProdService } from '../services/entradaProdServices.js'
 class EntradaProdController {
 	async createEntradaProd(req, res, next) {
 		try {
+			const userFullName = `${req.user.firstName} ${req.user.lastName}`
 			const entradaProdutoService = new entradaProdService()
+			const data = {
+				nome: req.body.nome,
+				lote: req.body.lote,
+				dataValidade: req.body.dataValidade,
+				funcionario: userFullName,
+			}
 			const entradaProduto =
-				await entradaProdutoService.createEntradaProd(req.body)
+				await entradaProdutoService.createEntradaProd(data)
 			if (!entradaProduto) {
 				return res.status(400).json({
 					error: 'Data de validade inválida. Deve ser maior que 7 dias',
