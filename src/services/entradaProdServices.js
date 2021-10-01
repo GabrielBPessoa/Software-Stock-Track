@@ -1,11 +1,21 @@
 import { entradaProdDbModules } from '../modules/entradaProdModules.js'
+import { ProdutosDbModules } from '../modules/produtosDbModules.js'
 import { CommonModules } from '../common/commonModules.js'
 
 class entradaProdService {
 	async createEntradaProd(entradaProdData) {
 		try {
 			const commomModules = new CommonModules()
-			const { nome, lote, dataValidade, funcionario } = entradaProdData
+			const produtosDbModules = new ProdutosDbModules()
+			const {
+				nome,
+				lote,
+				dataValidade,
+				funcionario,
+				precoCusto,
+				quantidade,
+				unidade,
+			} = entradaProdData
 			const isExpirationDateValid = await commomModules.validateDate(
 				dataValidade
 			)
@@ -16,11 +26,37 @@ class entradaProdService {
 				commomModules.parseDateString(dataValidade)
 			const EntradaProd = new entradaProdDbModules()
 			const createdentradaProd = await EntradaProd.createEntradaProd(
-				nome,
+				nome.toLowerCase(),
 				lote,
 				parsedDataValidade,
-				funcionario
+				funcionario,
+				precoCusto,
+				quantidade,
+				unidade
 			)
+			const produtoExists = await produtosDbModules.checkProdutoByNome(
+				nome.toLowerCase()
+			)
+			if (produtoExists === undefined) {
+				const descricao = 'Descrição Padrão'
+				const margemLucro = '30'
+				await produtosDbModules.createProduto(
+					nome.toLowerCase(),
+					descricao,
+					precoCusto,
+					margemLucro,
+					quantidade,
+					unidade
+				)
+			} else {
+				const updatedQuantidade =
+					produtoExists.quantidade + parseInt(quantidade)
+				await produtosDbModules.updateQuantidadeProduto(
+					produtoExists.id,
+					updatedQuantidade,
+					unidade
+				)
+			}
 			return createdentradaProd
 		} catch (err) {
 			console.log(err.message)

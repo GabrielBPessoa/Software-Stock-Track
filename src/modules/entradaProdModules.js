@@ -1,7 +1,15 @@
 import { dbConnect } from '../../data/db.js'
 
 class entradaProdDbModules {
-	async createEntradaProd(nome, lote, dataValidade, funcionario) {
+	async createEntradaProd(
+		nome,
+		lote,
+		dataValidade,
+		funcionario,
+		precoCusto,
+		quantidade,
+		unidade
+	) {
 		try {
 			const dataEntrada = new Date()
 			const entradaProd = await dbConnect('entradaProd')
@@ -11,6 +19,9 @@ class entradaProdDbModules {
 					dataValidade,
 					dataEntrada,
 					funcionario,
+					precoCusto,
+					quantidade,
+					unidade,
 				})
 				.returning([
 					'id',
@@ -19,6 +30,9 @@ class entradaProdDbModules {
 					'dataValidade',
 					'dataEntrada',
 					'funcionario',
+					'precoCusto',
+					'quantidade',
+					'unidade',
 				])
 			return entradaProd
 		} catch (err) {
