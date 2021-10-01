@@ -5,6 +5,8 @@ import { EntradaProdController } from '../controllers/entradaProdController.js'
 import { ValidateBody } from '../middlewares/validateSchema.js'
 import { ProdutoSchema } from '../validators/produtoYupSchema.js'
 import { EntradaProdSchema } from '../validators/entradaProdYupSchema.js'
+import { UpdateProdutoSchema } from '../validators/updateProdutoYupSchema.js'
+import { UpdateEntradaProdSchema } from '../validators/updateEntradaProdYupSchema.js'
 
 const router = Router()
 const produtoController = new ProdutoController()
@@ -37,6 +39,7 @@ router.get(
 
 router.put(
 	'/produto/:id',
+	validateBody.validateSchema(UpdateProdutoSchema),
 	produtoController.updateProduto,
 	errorHandling.handleError
 )
@@ -58,6 +61,7 @@ router.get(
 )
 router.put(
 	'/entrada/produto/:id',
+	validateBody.validateSchema(UpdateEntradaProdSchema),
 	entradaProdController.updateEntradaProduto,
 	errorHandling.handleError
 )

@@ -53,7 +53,15 @@ class entradaProdDbModules {
 		}
 	}
 
-	async updateEntradaProduto(id, nome, lote, dataValidade) {
+	async updateEntradaProduto(
+		id,
+		nome,
+		lote,
+		dataValidade,
+		precoCusto,
+		quantidade,
+		unidade
+	) {
 		try {
 			const date = new Date()
 			const updatedEntradaProduto = await dbConnect('entradaProd')
@@ -63,6 +71,9 @@ class entradaProdDbModules {
 						nome: nome,
 						lote: lote,
 						dataValidade: dataValidade,
+						precoCusto: precoCusto,
+						quantidade: quantidade,
+						unidade: unidade,
 						updated_at: date,
 					},
 					[
@@ -70,6 +81,9 @@ class entradaProdDbModules {
 						'nome',
 						'lote',
 						'dataValidade',
+						'precoCusto',
+						'quantidade',
+						'unidade',
 						'dataEntrada',
 						'created_at',
 						'updated_at',

@@ -70,6 +70,11 @@ class EntradaProdController {
 					req.params.id,
 					req.body
 				)
+			if (!updatedEntradaProduto) {
+				return res
+					.status(400)
+					.json({ error: 'Data de Validade menor que 7 dias' })
+			}
 			return res.status(200).json(updatedEntradaProduto)
 		} catch (err) {
 			console.log(err.message)
