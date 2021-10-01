@@ -1,5 +1,6 @@
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
+import { dbConnect } from '../../data/db.js'
 
 class Authentication {
 	async login(req, res, next) {
@@ -41,6 +42,23 @@ class Authentication {
 				}
 			}
 		)(req, res, next)
+	}
+	async validateToken(req, res, next) {
+		try {
+			const user = await dbConnect('user')
+				.where('email', req.user.email)
+				.first()
+			if (!user) {
+				return res.status(400).send({
+					message: 'Unable to retrieve User from token',
+				})
+			}
+			console.log(user)
+			next()
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in checkToken')
+		}
 	}
 }
 
