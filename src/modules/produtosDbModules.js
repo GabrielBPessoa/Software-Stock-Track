@@ -58,15 +58,7 @@ class ProdutosDbModules {
 		}
 	}
 
-	async updateProduto(
-		id,
-		nome,
-		descricao,
-		precoCusto,
-		margemLucro,
-		updatedQuantidade,
-		unidade
-	) {
+	async updateProduto(id, nome, descricao, precoCusto, margemLucro) {
 		try {
 			const date = new Date()
 			const updatedProduto = await dbConnect('produtos')
@@ -77,8 +69,6 @@ class ProdutosDbModules {
 						descricao: descricao,
 						precoCusto: precoCusto,
 						margemLucro: margemLucro,
-						quantidade: updatedQuantidade,
-						unidade: unidade,
 						updated_at: date,
 					},
 					[

@@ -93,12 +93,25 @@ class entradaProdService {
 	async updateEntradaProduto(id, info) {
 		try {
 			const entradaProdutoDbModules = new entradaProdDbModules()
+			const commomModules = new CommonModules()
+			const isExpirationDateValid = await commomModules.validateDate(
+				info.dataValidade
+			)
+			if (!isExpirationDateValid) {
+				return false
+			}
+			const parsedDataValidade = commomModules.parseDateString(
+				info.dataValidade
+			)
 			const updatedEntradaProduto =
 				await entradaProdutoDbModules.updateEntradaProduto(
 					id,
-					info.nome,
+					info.nome.toLowerCase(),
 					info.lote,
-					info.dataValidade
+					parsedDataValidade,
+					info.precoCusto,
+					info.quantidade,
+					info.unidade
 				)
 			return updatedEntradaProduto
 		} catch (err) {
