@@ -7,12 +7,14 @@ import { ProdutoSchema } from '../validators/produtoYupSchema.js'
 import { EntradaProdSchema } from '../validators/entradaProdYupSchema.js'
 import { UpdateProdutoSchema } from '../validators/updateProdutoYupSchema.js'
 import { UpdateEntradaProdSchema } from '../validators/updateEntradaProdYupSchema.js'
+import { RelatorioController } from '../controllers/relatorioController.js'
 
 const router = Router()
 const produtoController = new ProdutoController()
 const errorHandling = new ErrorHandling()
 const entradaProdController = new EntradaProdController()
 const validateBody = new ValidateBody()
+const relatorio = new RelatorioController()
 
 router.get('/', function (req, res) {
 	res.send('Hello World')
@@ -28,6 +30,12 @@ router.post(
 router.get(
 	'/produtos',
 	produtoController.getAllProdutos,
+	errorHandling.handleError
+)
+
+router.get(
+	'/produtos/relatorio',
+	relatorio.orderRelatorioByDate,
 	errorHandling.handleError
 )
 
