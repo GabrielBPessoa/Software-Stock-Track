@@ -10,6 +10,9 @@ class EntradaProdController {
 				lote: req.body.lote,
 				dataValidade: req.body.dataValidade,
 				funcionario: userFullName,
+				precoCusto: req.body.precoCusto,
+				quantidade: req.body.quantidade,
+				unidade: req.body.unidade,
 			}
 			const entradaProduto =
 				await entradaProdutoService.createEntradaProd(data)

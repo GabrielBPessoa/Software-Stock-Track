@@ -5,6 +5,9 @@ class ProdutoController {
 		try {
 			const produtoService = new ProdutosService()
 			const createdProdutos = await produtoService.createProduto(req.body)
+			if (createdProdutos.data) {
+				return res.status(400).json(createdProdutos)
+			}
 			return res.status(201).json(createdProdutos)
 		} catch (err) {
 			console.log(err.message)

@@ -4,6 +4,13 @@ import { CommonModules } from '../common/commonModules.js'
 export const EntradaProdSchema = yup.object().shape({
 	nome: yup.string().required().max(255),
 	lote: yup.string().required(),
+	precoCusto: yup.number().required().positive('Preço precisa ser positivo'),
+	quantidade: yup
+		.number()
+		.required()
+		.integer()
+		.positive('Quantidade precisa ser valor inteiro e positivo'),
+	unidade: yup.string().required().oneOf(['cx', 'kg', 'lt']),
 	dataValidade: yup
 		.string()
 		.matches(

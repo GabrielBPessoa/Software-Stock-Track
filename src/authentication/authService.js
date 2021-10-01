@@ -53,7 +53,6 @@ class Authentication {
 					message: 'Unable to retrieve User from token',
 				})
 			}
-			console.log(user)
 			next()
 		} catch (err) {
 			console.log(err.message)
