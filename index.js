@@ -5,11 +5,13 @@ import { authRouter } from './src/authentication/routes.js'
 import passport from 'passport'
 import { passportAuth } from './src/authentication/passportStrategy.js'
 import { Authentication } from './src/authentication/authService.js'
+import cors from 'cors'
 
 dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 3000
 const NODE_ENV = process.env.NODE_ENV || 'development'
+app.use(cors())
 
 const run = async () => {
 	try {
