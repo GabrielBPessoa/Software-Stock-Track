@@ -1,10 +1,13 @@
 import { entradaProdService } from '../services/entradaProdServices.js'
+import { entradaProdDbModules } from '../modules/entradaProdModules.js'
 
 class EntradaProdController {
 	async createEntradaProd(req, res, next) {
 		try {
 			const userFullName = `${req.user.firstName} ${req.user.lastName}`
 			const entradaProdutoService = new entradaProdService()
+			const entradaProd = new entradaProdDbModules()
+
 			const data = {
 				nome: req.body.nome,
 				lote: req.body.lote,
@@ -13,6 +16,16 @@ class EntradaProdController {
 				precoCusto: req.body.precoCusto,
 				quantidade: req.body.quantidade,
 				unidade: req.body.unidade,
+			}
+
+			const checkLote = await entradaProd.getEntradaProdutoByLote(
+				data.lote
+			)
+
+			if (checkLote) {
+				return res.status(400).send({
+					error: 'lote already exists',
+				})
 			}
 			const entradaProduto =
 				await entradaProdutoService.createEntradaProd(data)
