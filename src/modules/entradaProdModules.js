@@ -52,6 +52,17 @@ class entradaProdDbModules {
 			throw new Error('Something went wrong in getEntradaProdutoById')
 		}
 	}
+	async getEntradaProdutoByLote(lote) {
+		try {
+			const entradaProduto = dbConnect('entradaProd')
+				.where('lote', lote)
+				.first()
+			return entradaProduto
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getEntradaProdutoByLote')
+		}
+	}
 
 	async updateEntradaProduto(
 		id,

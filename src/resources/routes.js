@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { ProdutoController } from '../controllers/produtoController.js'
 import { ErrorHandling } from '../middlewares/errorHandling.js'
 import { EntradaProdController } from '../controllers/entradaProdController.js'
+import { SaidaProdController } from '../controllers/saidaProdController.js'
 import { ValidateBody } from '../middlewares/validateSchema.js'
 import { ProdutoSchema } from '../validators/produtoYupSchema.js'
 import { EntradaProdSchema } from '../validators/entradaProdYupSchema.js'
@@ -13,6 +14,7 @@ const router = Router()
 const produtoController = new ProdutoController()
 const errorHandling = new ErrorHandling()
 const entradaProdController = new EntradaProdController()
+const saidaProdController = new SaidaProdController()
 const validateBody = new ValidateBody()
 const relatorio = new RelatorioController()
 
@@ -73,4 +75,17 @@ router.put(
 	entradaProdController.updateEntradaProduto,
 	errorHandling.handleError
 )
+
+router.post(
+	'/saida/produto',
+	saidaProdController.createSaidaProd,
+	errorHandling.handleError
+)
+
+router.get(
+	'/saida/produtos',
+	saidaProdController.getAllSaidaProdutos,
+	errorHandling.handleError
+)
+
 export { router }
