@@ -32,12 +32,10 @@ class SaidaProdController {
 				data.lote
 			)
 			console.log(entradaInfo)
-			if (!entradaInfo || data.nome !== entradaInfo.nome) {
-				return res
-					.status(404)
-					.send({
-						error: 'lote not found, check lote number or product',
-					})
+			if (!entradaInfo || data.nome.toLowerCase() !== entradaInfo.nome) {
+				return res.status(404).send({
+					error: 'lote not found, check lote number or product',
+				})
 			}
 
 			const quantidadeSaidas = await saidaProdutoService.getMetrics(
