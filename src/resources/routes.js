@@ -10,6 +10,7 @@ import { UpdateProdutoSchema } from '../validators/updateProdutoYupSchema.js'
 import { UpdateEntradaProdSchema } from '../validators/updateEntradaProdYupSchema.js'
 import { RelatorioController } from '../controllers/relatorioController.js'
 import { SaidaCobrancaController } from '../controllers/saidaCobrancaController.js'
+import { EntradaCobrancaController } from '../controllers/entradaCobrancaController.js'
 
 const router = Router()
 const produtoController = new ProdutoController()
@@ -19,6 +20,7 @@ const saidaProdController = new SaidaProdController()
 const validateBody = new ValidateBody()
 const relatorio = new RelatorioController()
 const saidaCobranca = new SaidaCobrancaController()
+const entradaCobranca = new EntradaCobrancaController()
 
 router.get('/', function (req, res) {
 	res.send('Hello World')
@@ -93,6 +95,12 @@ router.get(
 router.get(
 	'/saida/cobrancas',
 	saidaCobranca.getAllCobrancas,
+	errorHandling.handleError
+)
+
+router.get(
+	'/entrada/cobrancas',
+	entradaCobranca.getAllCobrancas,
 	errorHandling.handleError
 )
 
