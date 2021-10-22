@@ -1,5 +1,6 @@
 import { entradaProdService } from '../services/entradaProdServices.js'
 import { entradaProdDbModules } from '../modules/entradaProdModules.js'
+import { EntradaCobrancaService } from '../services/entradaCobrancaServices.js'
 
 class EntradaProdController {
 	async createEntradaProd(req, res, next) {
@@ -7,6 +8,7 @@ class EntradaProdController {
 			const userFullName = `${req.user.firstName} ${req.user.lastName}`
 			const entradaProdutoService = new entradaProdService()
 			const entradaProd = new entradaProdDbModules()
+			const entradaCobrancaService = new EntradaCobrancaService()
 
 			const data = {
 				nome: req.body.nome,
@@ -16,6 +18,10 @@ class EntradaProdController {
 				precoCusto: req.body.precoCusto,
 				quantidade: req.body.quantidade,
 				unidade: req.body.unidade,
+				nomeFornecedor: req.body.nomeFornecedor,
+				cnpjFornecedor: req.body.cnpjFornecedor,
+				enderecoFornecedor: req.body.enderecoFornecedor,
+				telefoneFornecedor: req.body.telefoneFornecedor,
 			}
 
 			const checkLote = await entradaProd.getEntradaProdutoByLote(
@@ -34,6 +40,19 @@ class EntradaProdController {
 					error: 'Data de validade inválida. Deve ser maior que 7 dias',
 				})
 			}
+
+			const dataCobranca = {
+				numeroPedido: entradaProduto[0].id,
+				valor: entradaProduto[0].total,
+				nomeFornecedor: req.body.nomeFornecedor,
+				cnpjFornecedor: req.body.cnpjFornecedor,
+				enderecoFornecedor: req.body.enderecoFornecedor,
+				telefoneFornecedor: req.body.telefoneFornecedor,
+			}
+			const cobranca = await entradaCobrancaService.createSaidaCobranca(
+				dataCobranca
+			)
+			console.log(cobranca)
 			return res.status(201).json(entradaProduto)
 		} catch (err) {
 			console.log(err.message)

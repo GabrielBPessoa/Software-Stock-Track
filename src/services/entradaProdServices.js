@@ -15,6 +15,10 @@ class entradaProdService {
 				precoCusto,
 				quantidade,
 				unidade,
+				nomeFornecedor,
+				cnpjFornecedor,
+				enderecoFornecedor,
+				telefoneFornecedor,
 			} = entradaProdData
 			const isExpirationDateValid = await commomModules.validateDate(
 				dataValidade
@@ -32,7 +36,11 @@ class entradaProdService {
 				funcionario,
 				precoCusto,
 				quantidade,
-				unidade
+				unidade,
+				nomeFornecedor,
+				cnpjFornecedor,
+				enderecoFornecedor,
+				telefoneFornecedor
 			)
 			const produtoExists = await produtosDbModules.checkProdutoByNome(
 				nome.toLowerCase()
@@ -48,14 +56,14 @@ class entradaProdService {
 					quantidade,
 					unidade
 				)
-			} else {
-				const updatedQuantidade =
-					produtoExists.quantidade + parseInt(quantidade)
-				await produtosDbModules.updateQuantidadeProduto(
-					produtoExists.id,
-					updatedQuantidade,
-					unidade
-				)
+				// } else {
+				// 	const updatedQuantidade =
+				// 		produtoExists.quantidade + parseInt(quantidade)
+				// 	await produtosDbModules.updateQuantidadeProduto(
+				// 		produtoExists.id,
+				// 		updatedQuantidade,
+				// 		unidade
+				// 	)
 			}
 			return createdentradaProd
 		} catch (err) {
@@ -111,7 +119,11 @@ class entradaProdService {
 					parsedDataValidade,
 					info.precoCusto,
 					info.quantidade,
-					info.unidade
+					info.unidade,
+					info.nomeFornecedor,
+					info.cnpjFornecedor,
+					info.enderecoFornecedor,
+					info.telefoneFornecedor
 				)
 			return updatedEntradaProduto
 		} catch (err) {

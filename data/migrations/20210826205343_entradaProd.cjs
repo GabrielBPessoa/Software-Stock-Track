@@ -1,6 +1,6 @@
 exports.up = function (knex) {
 	return knex.schema.createTable('entradaProd', (table) => {
-		table.increments('id')
+		table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
 		table.string('nome', 255).notNullable()
 		table.string('lote', 255).notNullable()
 		table.string('funcionario', 255).notNullable()
@@ -9,6 +9,11 @@ exports.up = function (knex) {
 		table.date('dataEntrada', 255).notNullable()
 		table.integer('quantidade').notNullable()
 		table.string('unidade').notNullable()
+		table.float('total', 255).notNullable()
+		table.string('nomeFornecedor', 255).notNullable()
+		table.string('cnpjFornecedor', 255).notNullable()
+		table.string('enderecoFornecedor', 255).notNullable()
+		table.string('telefoneFornecedor', 255).notNullable()
 		table.timestamps(true, true)
 	})
 }

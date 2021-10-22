@@ -1,4 +1,5 @@
 import { SaidaProdService } from '../services/saidaProdServices.js'
+import { SaidaCobrancaService } from '../services/saidaCobrancaServices.js'
 import { ProdutosDbModules } from '../modules/produtosDbModules.js'
 import { entradaProdDbModules } from '../modules/entradaProdModules.js'
 
@@ -8,6 +9,7 @@ class SaidaProdController {
 			const userFullName = `${req.user.firstName} ${req.user.lastName}`
 
 			const saidaProdutoService = new SaidaProdService()
+			const saidaCobrancaService = new SaidaCobrancaService()
 			const produtosDbModules = new ProdutosDbModules()
 			const entradaDbModules = new entradaProdDbModules()
 
@@ -17,6 +19,10 @@ class SaidaProdController {
 				funcionario: userFullName,
 				precoVenda: req.body.precoVenda,
 				quantidade: req.body.quantidade,
+				nomeCliente: req.body.nomeCliente,
+				cnpjCliente: req.body.cnpjCliente,
+				endereçoCliente: req.body.endereçoCliente,
+				telefoneCliente: req.body.telefoneCliente,
 			}
 
 			const produtoExists = await produtosDbModules.checkProdutoByNome(
@@ -52,6 +58,17 @@ class SaidaProdController {
 			}
 
 			const saidaProduto = await saidaProdutoService.createSaidaProd(data)
+			const dataCobranca = {
+				numeroPedido: saidaProduto[0].id,
+				valor: saidaProduto[0].total,
+				nomeDevedor: req.body.nomeCliente,
+				cnpjDevedor: req.body.cnpjCliente,
+				enderecoDevedor: req.body.endereçoCliente,
+				telefoneDevedor: req.body.telefoneCliente,
+			}
+			const cobranca = await saidaCobrancaService.createSaidaCobranca(
+				dataCobranca
+			)
 			return res.status(201).json(saidaProduto)
 		} catch (err) {
 			console.log(err.message)

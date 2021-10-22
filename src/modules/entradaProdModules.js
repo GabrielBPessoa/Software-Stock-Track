@@ -8,10 +8,15 @@ class entradaProdDbModules {
 		funcionario,
 		precoCusto,
 		quantidade,
-		unidade
+		unidade,
+		nomeFornecedor,
+		cnpjFornecedor,
+		enderecoFornecedor,
+		telefoneFornecedor
 	) {
 		try {
 			const dataEntrada = new Date()
+			const total = precoCusto * quantidade
 			const entradaProd = await dbConnect('entradaProd')
 				.insert({
 					nome,
@@ -22,6 +27,11 @@ class entradaProdDbModules {
 					precoCusto,
 					quantidade,
 					unidade,
+					total,
+					nomeFornecedor,
+					cnpjFornecedor,
+					enderecoFornecedor,
+					telefoneFornecedor,
 				})
 				.returning([
 					'id',
@@ -33,6 +43,11 @@ class entradaProdDbModules {
 					'precoCusto',
 					'quantidade',
 					'unidade',
+					'total',
+					'nomeFornecedor',
+					'cnpjFornecedor',
+					'enderecoFornecedor',
+					'telefoneFornecedor',
 				])
 			return entradaProd
 		} catch (err) {
@@ -71,7 +86,11 @@ class entradaProdDbModules {
 		dataValidade,
 		precoCusto,
 		quantidade,
-		unidade
+		unidade,
+		nomeFornecedor,
+		cnpjFornecedor,
+		enderecoFornecedor,
+		telefoneFornecedor
 	) {
 		try {
 			const date = new Date()
@@ -86,16 +105,26 @@ class entradaProdDbModules {
 						quantidade: quantidade,
 						unidade: unidade,
 						updated_at: date,
+						nomeFornecedor: nomeFornecedor,
+						cnpjFornecedor: cnpjFornecedor,
+						enderecoFornecedor: enderecoFornecedor,
+						telefoneFornecedor: telefoneFornecedor,
 					},
 					[
 						'id',
 						'nome',
 						'lote',
 						'dataValidade',
+						'dataEntrada',
+						'funcionario',
 						'precoCusto',
 						'quantidade',
 						'unidade',
-						'dataEntrada',
+						'total',
+						'nomeFornecedor',
+						'cnpjFornecedor',
+						'enderecoFornecedor',
+						'telefoneFornecedor',
 						'created_at',
 						'updated_at',
 					]

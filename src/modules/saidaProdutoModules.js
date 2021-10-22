@@ -1,7 +1,17 @@
 import { dbConnect } from '../../data/db.js'
 
 class SaidaProdDbModules {
-	async createSaidaProd(nome, lote, funcionario, precoVenda, quantidade) {
+	async createSaidaProd(
+		nome,
+		lote,
+		funcionario,
+		precoVenda,
+		quantidade,
+		nomeCliente,
+		cnpjCliente,
+		endereçoCliente,
+		telefoneCliente
+	) {
 		try {
 			const dataSaida = new Date()
 			const total = precoVenda * quantidade
@@ -14,6 +24,10 @@ class SaidaProdDbModules {
 					precoVenda,
 					quantidade,
 					total,
+					nomeCliente,
+					cnpjCliente,
+					endereçoCliente,
+					telefoneCliente,
 				})
 				.returning([
 					'id',
@@ -24,6 +38,10 @@ class SaidaProdDbModules {
 					'precoVenda',
 					'quantidade',
 					'total',
+					'nomeCliente',
+					'cnpjCliente',
+					'endereçoCliente',
+					'telefoneCliente',
 				])
 			return saidaProd
 		} catch (err) {

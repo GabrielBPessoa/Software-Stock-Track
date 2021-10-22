@@ -4,14 +4,28 @@ import { entradaProdDbModules } from '../modules/entradaProdModules.js'
 class SaidaProdService {
 	async createSaidaProd(data) {
 		try {
-			const { nome, lote, funcionario, precoVenda, quantidade } = data
+			const {
+				nome,
+				lote,
+				funcionario,
+				precoVenda,
+				quantidade,
+				nomeCliente,
+				cnpjCliente,
+				endereçoCliente,
+				telefoneCliente,
+			} = data
 			const saidaProduto = new SaidaProdDbModules()
 			const createSaida = await saidaProduto.createSaidaProd(
 				nome.toLowerCase(),
 				lote,
 				funcionario,
 				precoVenda,
-				quantidade
+				quantidade,
+				nomeCliente,
+				cnpjCliente,
+				endereçoCliente,
+				telefoneCliente
 			)
 			return createSaida
 		} catch (err) {
