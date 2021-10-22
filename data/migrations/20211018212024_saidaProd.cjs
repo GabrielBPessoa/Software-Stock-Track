@@ -8,6 +8,10 @@ exports.up = function (knex) {
 		table.date('dataSaida', 255).notNullable()
 		table.integer('quantidade').notNullable()
 		table.float('total', 255).notNullable()
+		table.string('nomeCliente', 255).notNullable()
+		table.string('cnpjCliente', 255).notNullable()
+		table.string('endereçoCliente', 255).notNullable()
+		table.string('telefoneCliente', 255).notNullable()
 		table.timestamps(true, true)
 	})
 }
