@@ -109,6 +109,16 @@ class EntradaCobrancaDbModules {
 			throw new Error('Something went wrong in getCobranca')
 		}
 	}
+	async getCobrancasByDate(dataInicio, dataFinal) {
+		try {
+			const cobrancas = await dbConnect('entradaCobranca')
+				.table('entradaCobranca').where('created_at', '>=', dataInicio).where('created_at', '<=', dataFinal)
+			return cobrancas
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getCobrancaByDate')
+		}
+	}
 }
 
 export { EntradaCobrancaDbModules }
