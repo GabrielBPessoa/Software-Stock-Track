@@ -16,6 +16,21 @@ class EntradaCobrancaController {
 			next(err)
 		}
 	}
+	async getAllCobrancasByDate(req, res, next) {
+		try {
+			const entradaCobranca = new EntradaCobrancaService()
+			const cobrancas = await entradaCobranca.getCobrancasByDate(req.body.startDate, req.body.finalDate)
+			if (cobrancas.length === 0) {
+				return res.status(404).json({
+					error: 'Cobrancas not found.',
+				})
+			}
+			return res.status(200).json(cobrancas)
+		} catch (err) {
+			console.log(err.message)
+			next(err)
+		}
+	}
 }
 
 export { EntradaCobrancaController }

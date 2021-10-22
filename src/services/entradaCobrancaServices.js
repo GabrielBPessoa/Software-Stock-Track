@@ -67,6 +67,16 @@ class EntradaCobrancaService {
 			throw new Error('Something went wrong in updateCobranca')
 		}
 	}
+	async getCobrancasByDate(dataInicio, dataFinal) {
+		try {
+			const cobrancaDbModules = new EntradaCobrancaDbModules()
+			const cobranca = await cobrancaDbModules.getCobrancasByDate(dataInicio, dataFinal)
+			return cobranca
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getCobrancaByDate')
+		}
+	}
 }
 
 export { EntradaCobrancaService }
