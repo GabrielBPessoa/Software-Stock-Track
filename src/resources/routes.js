@@ -103,10 +103,14 @@ router.get(
 	entradaCobranca.getAllCobrancas,
 	errorHandling.handleError
 )
-
 router.post(
 	'/saida/cobranca/relatorio',
 	saidaCobranca.getCobrancaByDate,
+	errorHandling.handleError
+)
+router.post(
+	'/entrada/cobranca/relatorio',
+	entradaCobranca.getAllCobrancasByDate,
 	errorHandling.handleError
 )
 
