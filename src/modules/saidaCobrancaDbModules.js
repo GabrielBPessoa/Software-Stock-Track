@@ -107,6 +107,19 @@ class SaidaCobrancaDbModules {
 			throw new Error('Something went wrong in getCobranca')
 		}
 	}
+
+	async getCobrancaByDateRange(startDate, endDate) {
+		try {
+			const itens = await dbConnect('saidaCobranca')
+				.where('created_at', '>=', startDate)
+				.where('created_at', '<=', endDate)
+				.orderBy('created_at')
+			return itens
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getCobrancaByDateRange')
+		}
+	}
 }
 
 export { SaidaCobrancaDbModules }

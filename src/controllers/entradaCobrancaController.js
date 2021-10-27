@@ -19,7 +19,10 @@ class EntradaCobrancaController {
 	async getAllCobrancasByDate(req, res, next) {
 		try {
 			const entradaCobranca = new EntradaCobrancaService()
-			const cobrancas = await entradaCobranca.getCobrancasByDate(req.body.startDate, req.body.finalDate)
+			const cobrancas = await entradaCobranca.getCobrancasByDate(
+				req.body.startDate,
+				req.body.endDate
+			)
 			if (cobrancas.length === 0) {
 				return res.status(404).json({
 					error: 'Cobrancas not found.',
