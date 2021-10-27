@@ -49,6 +49,20 @@ class SaidaCobrancaService {
 		}
 	}
 
+	async getCobrancaByDateRange(startDate, endDate) {
+		try {
+			const cobrancaDbModules = new SaidaCobrancaDbModules()
+			const cobranca = await cobrancaDbModules.getCobrancaByDateRange(
+				startDate,
+				endDate
+			)
+			return cobranca
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getCobrancaById')
+		}
+	}
+
 	async updateCobranca(id, info) {
 		try {
 			const cobrancaDbModules = new SaidaCobrancaDbModules()

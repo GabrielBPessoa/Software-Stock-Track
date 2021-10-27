@@ -104,4 +104,10 @@ router.get(
 	errorHandling.handleError
 )
 
+router.post(
+	'/saida/cobranca/relatorio',
+	saidaCobranca.getCobrancaByDate,
+	errorHandling.handleError
+)
+
 export { router }
