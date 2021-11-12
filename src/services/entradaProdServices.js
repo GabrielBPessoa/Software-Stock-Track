@@ -19,6 +19,8 @@ class entradaProdService {
 				cnpjFornecedor,
 				enderecoFornecedor,
 				telefoneFornecedor,
+				dataFabricacao,
+				descricaoProduto,
 			} = entradaProdData
 			const isExpirationDateValid = await commomModules.validateDate(
 				dataValidade
@@ -40,7 +42,9 @@ class entradaProdService {
 				nomeFornecedor,
 				cnpjFornecedor,
 				enderecoFornecedor,
-				telefoneFornecedor
+				telefoneFornecedor,
+				dataFabricacao,
+				descricaoProduto,
 			)
 			const produtoExists = await produtosDbModules.checkProdutoByNome(
 				nome.toLowerCase()

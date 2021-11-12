@@ -2,6 +2,7 @@ import { SaidaProdService } from '../services/saidaProdServices.js'
 import { SaidaCobrancaService } from '../services/saidaCobrancaServices.js'
 import { ProdutosDbModules } from '../modules/produtosDbModules.js'
 import { entradaProdDbModules } from '../modules/entradaProdModules.js'
+import { date } from 'yup'
 
 class SaidaProdController {
 	async createSaidaProd(req, res, next) {
@@ -17,12 +18,16 @@ class SaidaProdController {
 				nome: req.body.nome,
 				lote: req.body.lote,
 				funcionario: userFullName,
-				precoVenda: req.body.precoVenda,
 				quantidade: req.body.quantidade,
 				nomeCliente: req.body.nomeCliente,
 				cnpjCliente: req.body.cnpjCliente,
 				endereçoCliente: req.body.endereçoCliente,
 				telefoneCliente: req.body.telefoneCliente,
+				precoVenda: "",
+				dataValidade: "",
+				dataFabricacao: "",
+				unidade: "",
+				descricaoProduto: "",
 			}
 
 			const produtoExists = await produtosDbModules.checkProdutoByNome(
@@ -38,9 +43,24 @@ class SaidaProdController {
 				data.lote
 			)
 			console.log(entradaInfo)
+			
 			if (!entradaInfo || data.nome.toLowerCase() !== entradaInfo.nome) {
 				return res.status(404).send({
 					error: 'lote not found, check lote number or product',
+				})
+			}
+			data.precoVenda = entradaInfo.precoCusto * (1 + produtoExists.margemLucro / 100)
+
+			data.dataValidade = entradaInfo.dataValidade
+			data.dataFabricacao = entradaInfo.dataFabricacao
+			data.unidade = entradaInfo.unidade
+			data.descricaoProduto = entradaInfo.descricaoProduto
+
+			const today = new Date()
+
+			if(data.dataValidade < today) {
+				return res.status(400).send({
+					error: 'data de validade menor que a data atual',
 				})
 			}
 

@@ -22,6 +22,8 @@ class EntradaProdController {
 				cnpjFornecedor: req.body.cnpjFornecedor,
 				enderecoFornecedor: req.body.enderecoFornecedor,
 				telefoneFornecedor: req.body.telefoneFornecedor,
+				dataFabricacao: req.body.dataFabricacao,
+				descricaoProduto: req.body.descricaoProduto,
 			}
 
 			const checkLote = await entradaProd.getEntradaProdutoByLote(

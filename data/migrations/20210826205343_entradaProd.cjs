@@ -14,6 +14,8 @@ exports.up = function (knex) {
 		table.string('cnpjFornecedor', 255).notNullable()
 		table.string('enderecoFornecedor', 255).notNullable()
 		table.string('telefoneFornecedor', 255).notNullable()
+		table.date('dataFabricacao', 255).notNullable()
+		table.string('descricaoProduto', 255).notNullable()
 		table.timestamps(true, true)
 	})
 }

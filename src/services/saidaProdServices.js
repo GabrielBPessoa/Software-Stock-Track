@@ -14,6 +14,10 @@ class SaidaProdService {
 				cnpjCliente,
 				endereçoCliente,
 				telefoneCliente,
+				dataFabricacao,
+				dataValidade,
+				descricaoProduto,
+				unidade,
 			} = data
 			const saidaProduto = new SaidaProdDbModules()
 			const createSaida = await saidaProduto.createSaidaProd(
@@ -25,7 +29,11 @@ class SaidaProdService {
 				nomeCliente,
 				cnpjCliente,
 				endereçoCliente,
-				telefoneCliente
+				telefoneCliente,
+				dataFabricacao,
+				dataValidade,
+				descricaoProduto,
+				unidade,
 			)
 			return createSaida
 		} catch (err) {

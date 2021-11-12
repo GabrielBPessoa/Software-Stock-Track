@@ -12,7 +12,9 @@ class entradaProdDbModules {
 		nomeFornecedor,
 		cnpjFornecedor,
 		enderecoFornecedor,
-		telefoneFornecedor
+		telefoneFornecedor,
+		dataFabricacao,
+		descricaoProduto
 	) {
 		try {
 			const dataEntrada = new Date()
@@ -32,6 +34,8 @@ class entradaProdDbModules {
 					cnpjFornecedor,
 					enderecoFornecedor,
 					telefoneFornecedor,
+					dataFabricacao,
+					descricaoProduto
 				})
 				.returning([
 					'id',
@@ -48,6 +52,8 @@ class entradaProdDbModules {
 					'cnpjFornecedor',
 					'enderecoFornecedor',
 					'telefoneFornecedor',
+					'dataFabricacao',
+					'descricaoProduto'
 				])
 			return entradaProd
 		} catch (err) {
@@ -109,6 +115,7 @@ class entradaProdDbModules {
 						cnpjFornecedor: cnpjFornecedor,
 						enderecoFornecedor: enderecoFornecedor,
 						telefoneFornecedor: telefoneFornecedor,
+						
 					},
 					[
 						'id',
