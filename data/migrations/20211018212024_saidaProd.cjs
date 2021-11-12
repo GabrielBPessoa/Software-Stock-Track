@@ -12,6 +12,10 @@ exports.up = function (knex) {
 		table.string('cnpjCliente', 255).notNullable()
 		table.string('endereçoCliente', 255).notNullable()
 		table.string('telefoneCliente', 255).notNullable()
+		table.date('dataFabricacao', 255).notNullable()
+		table.string('descricaoProduto', 255).notNullable()
+		table.date('dataValidade', 255).notNullable()
+		table.string('unidade').notNullable()
 		table.timestamps(true, true)
 	})
 }

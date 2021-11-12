@@ -10,7 +10,11 @@ class SaidaProdDbModules {
 		nomeCliente,
 		cnpjCliente,
 		endereçoCliente,
-		telefoneCliente
+		telefoneCliente,
+		dataFabricacao,
+		dataValidade,
+		descricaoProduto,
+		unidade
 	) {
 		try {
 			const dataSaida = new Date()
@@ -28,6 +32,10 @@ class SaidaProdDbModules {
 					cnpjCliente,
 					endereçoCliente,
 					telefoneCliente,
+					dataFabricacao,
+					dataValidade,
+					descricaoProduto,
+					unidade,
 				})
 				.returning([
 					'id',
@@ -42,6 +50,10 @@ class SaidaProdDbModules {
 					'cnpjCliente',
 					'endereçoCliente',
 					'telefoneCliente',
+					'dataFabricacao',
+					'dataValidade',
+					'descricaoProduto',
+					'unidade',
 				])
 			return saidaProd
 		} catch (err) {
