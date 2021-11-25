@@ -44,7 +44,7 @@ class entradaProdService {
 				enderecoFornecedor,
 				telefoneFornecedor,
 				dataFabricacao,
-				descricaoProduto,
+				descricaoProduto
 			)
 			const produtoExists = await produtosDbModules.checkProdutoByNome(
 				nome.toLowerCase()
@@ -106,21 +106,21 @@ class entradaProdService {
 		try {
 			const entradaProdutoDbModules = new entradaProdDbModules()
 			const commomModules = new CommonModules()
-			const isExpirationDateValid = await commomModules.validateDate(
-				info.dataValidade
-			)
-			if (!isExpirationDateValid) {
-				return false
-			}
-			const parsedDataValidade = commomModules.parseDateString(
-				info.dataValidade
-			)
+			// const isExpirationDateValid = await commomModules.validateDate(
+			// 	info.dataValidade
+			// )
+			// if (!isExpirationDateValid) {
+			// 	return false
+			// }
+			// const parsedDataValidade = commomModules.parseDateString(
+			// 	info.dataValidade
+			// )
 			const updatedEntradaProduto =
 				await entradaProdutoDbModules.updateEntradaProduto(
 					id,
 					info.nome.toLowerCase(),
 					info.lote,
-					parsedDataValidade,
+					info.dataValidade,
 					info.precoCusto,
 					info.quantidade,
 					info.unidade,

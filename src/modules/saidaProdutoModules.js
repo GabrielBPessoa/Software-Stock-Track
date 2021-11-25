@@ -122,6 +122,16 @@ class SaidaProdDbModules {
 			throw new Error('Something went wrong in getSaidasByLote')
 		}
 	}
+
+	async getSaidasByName(Name) {
+		try {
+			const saidaProduto = dbConnect('saidaProd').where('nome', Name)
+			return saidaProduto
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getSaidasByName')
+		}
+	}
 }
 
 export { SaidaProdDbModules }

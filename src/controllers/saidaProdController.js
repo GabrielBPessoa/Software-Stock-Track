@@ -23,11 +23,11 @@ class SaidaProdController {
 				cnpjCliente: req.body.cnpjCliente,
 				endereçoCliente: req.body.endereçoCliente,
 				telefoneCliente: req.body.telefoneCliente,
-				precoVenda: "",
-				dataValidade: "",
-				dataFabricacao: "",
-				unidade: "",
-				descricaoProduto: "",
+				precoVenda: '',
+				dataValidade: '',
+				dataFabricacao: '',
+				unidade: '',
+				descricaoProduto: '',
 			}
 
 			const produtoExists = await produtosDbModules.checkProdutoByNome(
@@ -42,14 +42,14 @@ class SaidaProdController {
 			const entradaInfo = await entradaDbModules.getEntradaProdutoByLote(
 				data.lote
 			)
-			console.log(entradaInfo)
-			
+
 			if (!entradaInfo || data.nome.toLowerCase() !== entradaInfo.nome) {
 				return res.status(404).send({
 					error: 'lote not found, check lote number or product',
 				})
 			}
-			data.precoVenda = entradaInfo.precoCusto * (1 + produtoExists.margemLucro / 100)
+			data.precoVenda =
+				entradaInfo.precoCusto * (1 + produtoExists.margemLucro / 100)
 
 			data.dataValidade = entradaInfo.dataValidade
 			data.dataFabricacao = entradaInfo.dataFabricacao
@@ -58,7 +58,7 @@ class SaidaProdController {
 
 			const today = new Date()
 
-			if(data.dataValidade < today) {
+			if (data.dataValidade < today) {
 				return res.status(400).send({
 					error: 'data de validade menor que a data atual',
 				})
