@@ -35,7 +35,7 @@ class entradaProdDbModules {
 					enderecoFornecedor,
 					telefoneFornecedor,
 					dataFabricacao,
-					descricaoProduto
+					descricaoProduto,
 				})
 				.returning([
 					'id',
@@ -53,7 +53,7 @@ class entradaProdDbModules {
 					'enderecoFornecedor',
 					'telefoneFornecedor',
 					'dataFabricacao',
-					'descricaoProduto'
+					'descricaoProduto',
 				])
 			return entradaProd
 		} catch (err) {
@@ -115,7 +115,6 @@ class entradaProdDbModules {
 						cnpjFornecedor: cnpjFornecedor,
 						enderecoFornecedor: enderecoFornecedor,
 						telefoneFornecedor: telefoneFornecedor,
-						
 					},
 					[
 						'id',
@@ -152,6 +151,16 @@ class entradaProdDbModules {
 		} catch (err) {
 			console.log(err.message)
 			throw new Error('Something went wrong in getEntradaProdutos')
+		}
+	}
+
+	async getEntradaProdutoByName(name) {
+		try {
+			const entradaProduto = dbConnect('entradaProd').where('nome', name)
+			return entradaProduto
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getEntradaProdutoByNome')
 		}
 	}
 }

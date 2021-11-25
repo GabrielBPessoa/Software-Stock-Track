@@ -1,4 +1,6 @@
 import { ProdutosDbModules } from '../modules/produtosDbModules.js'
+import { entradaProdDbModules } from '../modules/entradaProdModules.js'
+import { SaidaProdDbModules } from '../modules/saidaProdutoModules.js'
 
 class ProdutosService {
 	async createProduto(produtoData) {
@@ -29,8 +31,89 @@ class ProdutosService {
 	async getProdutos() {
 		try {
 			const produtoDbModules = new ProdutosDbModules()
+			const entradaProdutos = new entradaProdDbModules()
+			const saidaProdutos = new SaidaProdDbModules()
+
 			const produtos = await produtoDbModules.getProdutos()
-			return produtos
+
+			const inventory = []
+
+			for (let i = 0; i < produtos.length; i++) {
+				let quantidadeEntrada = 0
+				let quantidadeSaida = 0
+
+				const entradaInfo =
+					await entradaProdutos.getEntradaProdutoByName(
+						produtos[i].nome
+					)
+
+				const filteredInfo = entradaInfo.filter((dates) => {
+					if (dates.dataValidade >= new Date()) {
+						return dates
+					}
+				})
+
+				if (filteredInfo.length === 0) {
+					const nearestDate = entradaInfo.reduce(function (
+						element,
+						Previousitem
+					) {
+						return element.dataValidade >= Previousitem.dataValidade
+							? element
+							: Previousitem
+					})
+
+					produtos[i].dataValidade =
+						nearestDate.dataValidade.toLocaleDateString()
+				} else {
+					const nearestDate = filteredInfo.reduce(function (
+						element,
+						Previousitem
+					) {
+						return element.dataValidade < Previousitem.dataValidade
+							? element
+							: Previousitem
+					})
+
+					produtos[i].dataValidade =
+						nearestDate.dataValidade.toLocaleDateString()
+				}
+
+				const saidaInfo = await saidaProdutos.getSaidasByName(
+					produtos[i].nome
+				)
+
+				if (saidaInfo.length !== 0) {
+					const ultimaVenda = saidaInfo.reduce(function (
+						element,
+						Previousitem
+					) {
+						return element.dataSaida >= Previousitem.dataSaida
+							? element
+							: Previousitem
+					})
+
+					produtos[i].ultimaVenda =
+						ultimaVenda.dataSaida.toLocaleDateString()
+				} else {
+					produtos[i].ultimaVenda = null
+				}
+
+				for (let j = 0; j < entradaInfo.length; j++) {
+					quantidadeEntrada += entradaInfo[j].quantidade
+				}
+
+				for (let n = 0; n < saidaInfo.length; n++) {
+					quantidadeSaida += saidaInfo[n].quantidade
+				}
+
+				const quantidade = quantidadeEntrada - quantidadeSaida
+
+				produtos[i].quantidade = quantidade
+
+				inventory.push(produtos[i])
+			}
+			return inventory
 		} catch (err) {
 			console.log(err.message)
 			throw new Error('Something went wrong in getProdutosService')
