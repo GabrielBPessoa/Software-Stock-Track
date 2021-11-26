@@ -47,36 +47,42 @@ class ProdutosService {
 						produtos[i].nome
 					)
 
-				const filteredInfo = entradaInfo.filter((dates) => {
-					if (dates.dataValidade >= new Date()) {
-						return dates
-					}
-				})
-
-				if (filteredInfo.length === 0) {
-					const nearestDate = entradaInfo.reduce(function (
-						element,
-						Previousitem
-					) {
-						return element.dataValidade >= Previousitem.dataValidade
-							? element
-							: Previousitem
-					})
-
-					produtos[i].dataValidade =
-						nearestDate.dataValidade.toLocaleDateString()
+				if (entradaInfo.length === 0) {
+					produtos[i].dataValidade = null
 				} else {
-					const nearestDate = filteredInfo.reduce(function (
-						element,
-						Previousitem
-					) {
-						return element.dataValidade < Previousitem.dataValidade
-							? element
-							: Previousitem
+					const filteredInfo = entradaInfo.filter((dates) => {
+						if (dates.dataValidade >= new Date()) {
+							return dates
+						}
 					})
 
-					produtos[i].dataValidade =
-						nearestDate.dataValidade.toLocaleDateString()
+					if (filteredInfo.length === 0) {
+						const nearestDate = entradaInfo.reduce(function (
+							element,
+							Previousitem
+						) {
+							return element.dataValidade >=
+								Previousitem.dataValidade
+								? element
+								: Previousitem
+						})
+
+						produtos[i].dataValidade =
+							nearestDate.dataValidade.toLocaleDateString()
+					} else {
+						const nearestDate = filteredInfo.reduce(function (
+							element,
+							Previousitem
+						) {
+							return element.dataValidade <
+								Previousitem.dataValidade
+								? element
+								: Previousitem
+						})
+
+						produtos[i].dataValidade =
+							nearestDate.dataValidade.toLocaleDateString()
+					}
 				}
 
 				const saidaInfo = await saidaProdutos.getSaidasByName(
@@ -116,7 +122,6 @@ class ProdutosService {
 			return inventory
 		} catch (err) {
 			console.log(err.message)
-			throw new Error('Something went wrong in getProdutosService')
 		}
 	}
 
