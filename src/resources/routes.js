@@ -11,6 +11,8 @@ import { UpdateEntradaProdSchema } from '../validators/updateEntradaProdYupSchem
 import { RelatorioController } from '../controllers/relatorioController.js'
 import { SaidaCobrancaController } from '../controllers/saidaCobrancaController.js'
 import { EntradaCobrancaController } from '../controllers/entradaCobrancaController.js'
+import { ClienteController } from '../controllers/clienteController.js'
+import { FornecedorController } from '../controllers/fornecedorController.js'
 
 const router = Router()
 const produtoController = new ProdutoController()
@@ -21,6 +23,8 @@ const validateBody = new ValidateBody()
 const relatorio = new RelatorioController()
 const saidaCobranca = new SaidaCobrancaController()
 const entradaCobranca = new EntradaCobrancaController()
+const clienteController = new ClienteController()
+const fornecedorController = new FornecedorController()
 
 router.get('/', function (req, res) {
 	res.send('Hello World')
@@ -111,6 +115,54 @@ router.post(
 router.post(
 	'/entrada/cobranca/relatorio',
 	entradaCobranca.getAllCobrancasByDate,
+	errorHandling.handleError
+)
+
+router.post(
+	'/cliente',
+	clienteController.createCliente,
+	errorHandling.handleError
+)
+
+router.get(
+	'/clientes',
+	clienteController.getClientes,
+	errorHandling.handleError
+)
+
+router.get(
+	'/cliente/:cnpj',
+	clienteController.getClientebyCnpj,
+	errorHandling.handleError
+)
+
+router.put(
+	'/cliente/:id',
+	clienteController.updateCliente,
+	errorHandling.handleError
+)
+
+router.post(
+	'/fornecedor',
+	fornecedorController.createFornecedor,
+	errorHandling.handleError
+)
+
+router.get(
+	'/fornecedores',
+	fornecedorController.getFornecedores,
+	errorHandling.handleError
+)
+
+router.get(
+	'/fornecedor/:cnpj',
+	fornecedorController.getFornecedorByCnpj,
+	errorHandling.handleError
+)
+
+router.put(
+	'/fornecedor/:id',
+	fornecedorController.updateFornecedor,
 	errorHandling.handleError
 )
 

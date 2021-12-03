@@ -1,6 +1,7 @@
 import { entradaProdService } from '../services/entradaProdServices.js'
 import { entradaProdDbModules } from '../modules/entradaProdModules.js'
 import { EntradaCobrancaService } from '../services/entradaCobrancaServices.js'
+import { FornecedorServices } from '../services/fornecedorServices.js'
 
 class EntradaProdController {
 	async createEntradaProd(req, res, next) {
@@ -8,6 +9,7 @@ class EntradaProdController {
 			const userFullName = `${req.user.firstName} ${req.user.lastName}`
 			const entradaProdutoService = new entradaProdService()
 			const entradaProd = new entradaProdDbModules()
+			const fornecedorServices = new FornecedorServices()
 			const entradaCobrancaService = new EntradaCobrancaService()
 
 			const data = {
@@ -41,6 +43,20 @@ class EntradaProdController {
 				return res.status(400).json({
 					error: 'Data de validade inválida. Deve ser maior que 7 dias',
 				})
+			}
+
+			const checkFornecedor =
+				await fornecedorServices.getFornecedorByCnpj(
+					req.body.cnpjFornecedor
+				)
+			if (!checkFornecedor) {
+				const dadosFornecedor = {
+					nome: req.body.nomeFornecedor,
+					cnpj: req.body.cnpjFornecedor,
+					endereco: req.body.enderecoFornecedor,
+					telefone: req.body.telefoneFornecedor,
+				}
+				await fornecedorServices.createFornecedor(dadosFornecedor)
 			}
 
 			const dataCobranca = {
