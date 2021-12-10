@@ -2,7 +2,7 @@ import { SaidaProdService } from '../services/saidaProdServices.js'
 import { SaidaCobrancaService } from '../services/saidaCobrancaServices.js'
 import { ProdutosDbModules } from '../modules/produtosDbModules.js'
 import { entradaProdDbModules } from '../modules/entradaProdModules.js'
-import { date } from 'yup'
+import { ClienteServices } from '../services/clienteServices.js'
 
 class SaidaProdController {
 	async createSaidaProd(req, res, next) {
@@ -13,6 +13,7 @@ class SaidaProdController {
 			const saidaCobrancaService = new SaidaCobrancaService()
 			const produtosDbModules = new ProdutosDbModules()
 			const entradaDbModules = new entradaProdDbModules()
+			const clienteServices = new ClienteServices()
 
 			const data = {
 				nome: req.body.nome,
@@ -48,6 +49,20 @@ class SaidaProdController {
 					error: 'lote not found, check lote number or product',
 				})
 			}
+
+			const checkCliente = await clienteServices.getClienteByCnpj(
+				req.body.cnpjCliente
+			)
+			if (!checkCliente) {
+				const dadosCliente = {
+					nome: req.body.nomeCliente,
+					cnpj: req.body.cnpjCliente,
+					endereco: req.body.endereçoCliente,
+					telefone: req.body.telefoneCliente,
+				}
+				await clienteServices.createCliente(dadosCliente)
+			}
+
 			data.precoVenda =
 				entradaInfo.precoCusto * (1 + produtoExists.margemLucro / 100)
 
