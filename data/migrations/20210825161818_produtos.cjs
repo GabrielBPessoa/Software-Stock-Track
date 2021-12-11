@@ -7,6 +7,8 @@ exports.up = function (knex) {
 		table.float('margemLucro', 2).notNullable().defaultTo(30)
 		table.integer('quantidade').notNullable().defaultTo(0)
 		table.string('unidade').notNullable().defaultTo('Unidade Padrão')
+		table.string('status').notNullable().defaultTo('ativo')
+
 		table.timestamps(true, true)
 	})
 }

@@ -7,7 +7,8 @@ class ProdutosDbModules {
 		precoCusto,
 		margemLucro,
 		quantidade,
-		unidade
+		unidade,
+		status
 	) {
 		try {
 			if (descricao === undefined) {
@@ -21,6 +22,7 @@ class ProdutosDbModules {
 					margemLucro,
 					quantidade,
 					unidade,
+					status,
 				})
 				.returning([
 					'id',
@@ -28,6 +30,7 @@ class ProdutosDbModules {
 					'descricao',
 					'precoCusto',
 					'margemLucro',
+					'status',
 					'created_at',
 					'updated_at',
 				])
@@ -58,7 +61,7 @@ class ProdutosDbModules {
 		}
 	}
 
-	async updateProduto(id, nome, descricao, precoCusto, margemLucro) {
+	async updateProduto(id, nome, descricao, precoCusto, margemLucro, status) {
 		try {
 			const date = new Date()
 			const updatedProduto = await dbConnect('produtos')
@@ -69,6 +72,7 @@ class ProdutosDbModules {
 						descricao: descricao,
 						precoCusto: precoCusto,
 						margemLucro: margemLucro,
+						status,
 						updated_at: date,
 					},
 					[
@@ -79,6 +83,7 @@ class ProdutosDbModules {
 						'margemLucro',
 						'quantidade',
 						'unidade',
+						'status',
 						'created_at',
 						'updated_at',
 					]
