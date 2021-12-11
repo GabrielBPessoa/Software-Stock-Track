@@ -50,6 +50,18 @@ class SaidaCobrancaDbModules {
 		}
 	}
 
+	async getCobrancaByPedido(pedidoId) {
+		try {
+			const cobranca = dbConnect('saidaCobranca')
+				.where('numeroPedido', pedidoId)
+				.first()
+			return cobranca
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getCobrancaById')
+		}
+	}
+
 	async updateCobranca(
 		id,
 		numeroPedido,
@@ -118,6 +130,30 @@ class SaidaCobrancaDbModules {
 		} catch (err) {
 			console.log(err.message)
 			throw new Error('Something went wrong in getCobrancaByDateRange')
+		}
+	}
+
+	async approveCobranca(id) {
+		try {
+			const cobranca = await dbConnect('saidaCobranca')
+				.where('id', id)
+				.update({ status: 'PAGO' })
+			return cobranca
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong')
+		}
+	}
+
+	async rejectCobranca(id) {
+		try {
+			const cobranca = await dbConnect('saidaCobranca')
+				.where('id', id)
+				.update({ status: 'CANCELADO' })
+			return cobranca
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong')
 		}
 	}
 }

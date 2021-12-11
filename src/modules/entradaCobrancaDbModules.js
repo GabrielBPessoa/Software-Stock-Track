@@ -112,11 +112,36 @@ class EntradaCobrancaDbModules {
 	async getCobrancasByDate(dataInicio, dataFinal) {
 		try {
 			const cobrancas = await dbConnect('entradaCobranca')
-				.table('entradaCobranca').where('created_at', '>=', dataInicio).where('created_at', '<=', dataFinal)
+				.table('entradaCobranca')
+				.where('created_at', '>=', dataInicio)
+				.where('created_at', '<=', dataFinal)
 			return cobrancas
 		} catch (err) {
 			console.log(err.message)
 			throw new Error('Something went wrong in getCobrancaByDate')
+		}
+	}
+	async approveCobranca(id) {
+		try {
+			const cobranca = await dbConnect('entradaCobranca')
+				.where('id', id)
+				.update({ status: 'PAGO' })
+			return cobranca
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong')
+		}
+	}
+
+	async rejectCobranca(id) {
+		try {
+			const cobranca = await dbConnect('entradaCobranca')
+				.where('id', id)
+				.update({ status: 'CANCELADO' })
+			return cobranca
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong')
 		}
 	}
 }
