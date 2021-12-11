@@ -141,10 +141,11 @@ class ProdutosService {
 			const produtoDbModules = new ProdutosDbModules()
 			const updatedProduto = await produtoDbModules.updateProduto(
 				id,
-				info.nome.toLowerCase(),
+				info.nome,
 				info.descricao,
 				info.precoCusto,
-				info.margemLucro
+				info.margemLucro,
+				info.status
 			)
 			return updatedProduto
 		} catch (err) {

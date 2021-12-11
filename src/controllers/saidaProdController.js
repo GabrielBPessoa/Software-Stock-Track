@@ -40,6 +40,12 @@ class SaidaProdController {
 				})
 			}
 
+			if (produtoExists.status === 'inativo') {
+				return res.status(400).send({
+					message: 'Produto está inativo',
+				})
+			}
+
 			const entradaInfo = await entradaDbModules.getEntradaProdutoByLote(
 				data.lote
 			)

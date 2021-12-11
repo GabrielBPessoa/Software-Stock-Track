@@ -52,13 +52,15 @@ class entradaProdService {
 			if (produtoExists === undefined) {
 				const descricao = 'Descrição Padrão'
 				const margemLucro = '30'
+				const status = 'ativo'
 				await produtosDbModules.createProduto(
 					nome.toLowerCase(),
 					descricao,
 					precoCusto,
 					margemLucro,
 					quantidade,
-					unidade
+					unidade,
+					status
 				)
 				// } else {
 				// 	const updatedQuantidade =

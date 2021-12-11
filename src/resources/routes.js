@@ -102,6 +102,18 @@ router.get(
 	errorHandling.handleError
 )
 
+router.put(
+	'/saida/cobranca/:id',
+	saidaCobranca.approveCobranca,
+	errorHandling.handleError
+)
+
+router.delete(
+	'/saida/cobranca/:id',
+	saidaCobranca.rejectCobranca,
+	errorHandling.handleError
+)
+
 router.get(
 	'/entrada/cobrancas',
 	entradaCobranca.getAllCobrancas,
@@ -115,6 +127,18 @@ router.post(
 router.post(
 	'/entrada/cobranca/relatorio',
 	entradaCobranca.getAllCobrancasByDate,
+	errorHandling.handleError
+)
+
+router.put(
+	'/entrada/cobranca/:id',
+	entradaCobranca.approveCobranca,
+	errorHandling.handleError
+)
+
+router.delete(
+	'/entrada/cobranca/:id',
+	entradaCobranca.rejectCobranca,
 	errorHandling.handleError
 )
 

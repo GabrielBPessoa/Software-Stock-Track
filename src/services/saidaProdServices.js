@@ -1,5 +1,5 @@
 import { SaidaProdDbModules } from '../modules/saidaProdutoModules.js'
-import { entradaProdDbModules } from '../modules/entradaProdModules.js'
+import { SaidaCobrancaService } from '../services/saidaCobrancaServices.js'
 
 class SaidaProdService {
 	async createSaidaProd(data) {
@@ -33,7 +33,7 @@ class SaidaProdService {
 				dataFabricacao,
 				dataValidade,
 				descricaoProduto,
-				unidade,
+				unidade
 			)
 			return createSaida
 		} catch (err) {
@@ -70,8 +70,11 @@ class SaidaProdService {
 			const updatedSaida = await saidaProduto.updateSaidaProduto(
 				id,
 				info.nome.toLowerCase(),
-				info.precoVenda,
-				info.quantidade
+				info.quantidade,
+				info.nomeCliente,
+				info.cnpjCliente,
+				info.endereçoCliente,
+				info.telefoneCliente
 			)
 			return updatedSaida
 		} catch (err) {
@@ -80,7 +83,6 @@ class SaidaProdService {
 		}
 	}
 	async getMetrics(lote) {
-		const entradaDbModules = new entradaProdDbModules()
 		const saidaProduto = new SaidaProdDbModules()
 
 		const saidas = await saidaProduto.getSaidasByLote(lote)
