@@ -84,6 +84,12 @@ router.put(
 	errorHandling.handleError
 )
 
+router.get(
+	'/entrada/produtos/:startDate/:endDate',
+	entradaProdController.getProdutoByDate,
+	errorHandling.handleError
+)
+
 router.post(
 	'/saida/produto',
 	saidaProdController.createSaidaProd,
@@ -93,6 +99,12 @@ router.post(
 router.get(
 	'/saida/produtos',
 	saidaProdController.getAllSaidaProdutos,
+	errorHandling.handleError
+)
+
+router.get(
+	'/saida/produtos/:startDate/:endDate',
+	saidaProdController.getProdutoByDate,
 	errorHandling.handleError
 )
 

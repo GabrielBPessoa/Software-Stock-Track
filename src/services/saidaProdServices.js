@@ -95,6 +95,20 @@ class SaidaProdService {
 
 		return quantidadeSaida
 	}
+
+	async getProdutoByDateRange(startDate, endDate) {
+		try {
+			const saidaProduto = new SaidaProdDbModules()
+			const Produto = await saidaProduto.getProdutoByDateRange(
+				startDate,
+				endDate
+			)
+			return Produto
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong')
+		}
+	}
 }
 
 export { SaidaProdService }
