@@ -7,7 +7,12 @@ import { ValidateBody } from '../middlewares/validateSchema.js'
 import { ProdutoSchema } from '../validators/produtoYupSchema.js'
 import { EntradaProdSchema } from '../validators/entradaProdYupSchema.js'
 import { UpdateProdutoSchema } from '../validators/updateProdutoYupSchema.js'
+import { ClienteSchema } from '../validators/ClienteYupSchema.js'
+import { FornecedorSchema } from '../validators/fornecedorYupSchema.js'
 import { UpdateEntradaProdSchema } from '../validators/updateEntradaProdYupSchema.js'
+import { saidaProdutoSchema } from '../validators/saidaProdYupSchema.js'
+import { UpdateClienteSchema } from '../validators/updateClienteYupSchema.js'
+import { UpdateFornecedorSchema } from '../validators/updateFornecedorYupSchema.js'
 import { RelatorioController } from '../controllers/relatorioController.js'
 import { SaidaCobrancaController } from '../controllers/saidaCobrancaController.js'
 import { EntradaCobrancaController } from '../controllers/entradaCobrancaController.js'
@@ -92,6 +97,7 @@ router.get(
 
 router.post(
 	'/saida/produto',
+	validateBody.validateSchema(saidaProdutoSchema),
 	saidaProdController.createSaidaProd,
 	errorHandling.handleError
 )
@@ -156,6 +162,7 @@ router.delete(
 
 router.post(
 	'/cliente',
+	validateBody.validateSchema(ClienteSchema),
 	clienteController.createCliente,
 	errorHandling.handleError
 )
@@ -174,12 +181,14 @@ router.get(
 
 router.put(
 	'/cliente/:id',
+	validateBody.validateSchema(UpdateClienteSchema),
 	clienteController.updateCliente,
 	errorHandling.handleError
 )
 
 router.post(
 	'/fornecedor',
+	validateBody.validateSchema(FornecedorSchema),
 	fornecedorController.createFornecedor,
 	errorHandling.handleError
 )
@@ -198,6 +207,7 @@ router.get(
 
 router.put(
 	'/fornecedor/:id',
+	validateBody.validateSchema(UpdateFornecedorSchema),
 	fornecedorController.updateFornecedor,
 	errorHandling.handleError
 )
