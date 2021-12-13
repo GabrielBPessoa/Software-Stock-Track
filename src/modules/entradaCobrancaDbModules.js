@@ -109,16 +109,25 @@ class EntradaCobrancaDbModules {
 			throw new Error('Something went wrong in getCobranca')
 		}
 	}
-	async getCobrancasByDate(dataInicio, dataFinal) {
+
+	async getCobrancaByDateRange(startDate, endDate) {
 		try {
-			const cobrancas = await dbConnect('entradaCobranca')
-				.table('entradaCobranca')
-				.where('created_at', '>=', dataInicio)
-				.where('created_at', '<=', dataFinal)
-			return cobrancas
+			const parseStartDate = new Date(startDate)
+			const firstDate = new Date(parseStartDate)
+			firstDate.setUTCHours(0, 0, 0)
+
+			const parseFinalDate = new Date(endDate)
+			const Finaldate = new Date(parseFinalDate)
+			Finaldate.setUTCHours(23, 59, 59)
+
+			const itens = await dbConnect('entradaCobranca')
+				.where('created_at', '>=', firstDate)
+				.where('created_at', '<=', Finaldate)
+				.orderBy('created_at')
+			return itens
 		} catch (err) {
 			console.log(err.message)
-			throw new Error('Something went wrong in getCobrancaByDate')
+			throw new Error('Something went wrong in getCobrancaByDateRange')
 		}
 	}
 	async approveCobranca(id) {

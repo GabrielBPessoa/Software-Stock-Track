@@ -20,8 +20,8 @@ class EntradaCobrancaController {
 		try {
 			const entradaCobranca = new EntradaCobrancaService()
 			const cobrancas = await entradaCobranca.getCobrancasByDate(
-				req.body.startDate,
-				req.body.endDate
+				req.params.startDate,
+				req.params.endDate
 			)
 			if (cobrancas.length === 0) {
 				return res.status(404).json({

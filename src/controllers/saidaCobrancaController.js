@@ -20,8 +20,8 @@ class SaidaCobrancaController {
 		try {
 			const saidaCobranca = new SaidaCobrancaService()
 			const cobrancas = await saidaCobranca.getCobrancaByDateRange(
-				req.body.startDate,
-				req.body.endDate
+				req.params.startDate,
+				req.params.endDate
 			)
 			if (cobrancas.length === 0) {
 				return res.status(404).json({
