@@ -26,4 +26,8 @@ export const EntradaProdSchema = yup.object().shape({
 				return await commonModules.validateDate(value)
 			}
 		),
+	nomeFornecedor: yup.string().max(255).required(),
+	cnpjFornecedor: yup.string().min(14).max(14).required(),
+	enderecoFornecedor: yup.string().required(),
+	telefoneFornecedor: yup.string().required(),
 })
