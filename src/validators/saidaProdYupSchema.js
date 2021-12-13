@@ -9,7 +9,7 @@ export const saidaProdutoSchema = yup.object().shape({
 		.required()
 		.positive('quantidade precisa ser positivo'),
 	nomeCliente: yup.string().max(255).required(),
-	cnpjCliente: yup.string().min(16).max(16).required(),
+	cnpjCliente: yup.string().min(14).max(14).required(),
 	endereçoCliente: yup.string().required(),
 	telefoneCliente: yup.string().required(),
 })
