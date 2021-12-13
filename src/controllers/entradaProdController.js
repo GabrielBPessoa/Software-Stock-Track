@@ -131,6 +131,25 @@ class EntradaProdController {
 			next(err)
 		}
 	}
+
+	async getProdutoByDate(req, res, next) {
+		try {
+			const entradaProdutoService = new entradaProdService()
+			const produtos = await entradaProdutoService.getProdutoByDateRange(
+				req.params.startDate,
+				req.params.endDate
+			)
+			if (produtos.length === 0) {
+				return res.status(404).json({
+					error: 'Produtos not found.',
+				})
+			}
+			return res.status(200).json(produtos)
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong')
+		}
+	}
 }
 
 export { EntradaProdController }

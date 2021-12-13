@@ -113,7 +113,7 @@ class SaidaProdController {
 			return res.status(201).json(saidaProduto)
 		} catch (err) {
 			console.log(err.message)
-			next(err)
+			throw new Error('Something went wrong')
 		}
 	}
 
@@ -129,7 +129,7 @@ class SaidaProdController {
 			return res.status(200).json(saidaprodutos)
 		} catch (err) {
 			console.log(err.message)
-			next(err)
+			throw new Error('Something went wrong')
 		}
 	}
 
@@ -147,7 +147,7 @@ class SaidaProdController {
 			return res.status(200).json(saidaProduto)
 		} catch (err) {
 			console.log(err.message)
-			next(err)
+			throw new Error('Something went wrong')
 		}
 	}
 
@@ -164,7 +164,26 @@ class SaidaProdController {
 			return res.status(200).json(updatedSaidaProduto)
 		} catch (err) {
 			console.log(err.message)
-			next(err)
+			throw new Error('Something went wrong')
+		}
+	}
+
+	async getProdutoByDate(req, res, next) {
+		try {
+			const saidaProdutoService = new SaidaProdService()
+			const produtos = await saidaProdutoService.getProdutoByDateRange(
+				req.params.startDate,
+				req.params.endDate
+			)
+			if (produtos.length === 0) {
+				return res.status(404).json({
+					error: 'Produtos not found.',
+				})
+			}
+			return res.status(200).json(produtos)
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong')
 		}
 	}
 }

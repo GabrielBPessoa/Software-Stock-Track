@@ -163,6 +163,27 @@ class entradaProdDbModules {
 			throw new Error('Something went wrong in getEntradaProdutoByNome')
 		}
 	}
+
+	async getProdutoByDateRange(startDate, endDate) {
+		try {
+			const parseStartDate = new Date(startDate)
+			const firstDate = new Date(parseStartDate)
+			firstDate.setUTCHours(0, 0, 0)
+
+			const parseFinalDate = new Date(endDate)
+			const Finaldate = new Date(parseFinalDate)
+			Finaldate.setUTCHours(23, 59, 59)
+
+			const itens = await dbConnect('entradaProd')
+				.where('created_at', '>=', firstDate)
+				.where('created_at', '<=', Finaldate)
+				.orderBy('created_at')
+			return itens
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong in getProdutoByDateRange')
+		}
+	}
 }
 
 export { entradaProdDbModules }

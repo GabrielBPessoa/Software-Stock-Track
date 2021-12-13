@@ -30,6 +30,9 @@ class entradaProdService {
 			}
 			const parsedDataValidade =
 				commomModules.parseDateString(dataValidade)
+
+			const parsedDataFabricacao =
+				commomModules.parseDateString(dataFabricacao)
 			const EntradaProd = new entradaProdDbModules()
 			const createdentradaProd = await EntradaProd.createEntradaProd(
 				nome.toLowerCase(),
@@ -43,7 +46,7 @@ class entradaProdService {
 				cnpjFornecedor,
 				enderecoFornecedor,
 				telefoneFornecedor,
-				dataFabricacao,
+				parsedDataFabricacao,
 				descricaoProduto
 			)
 			const produtoExists = await produtosDbModules.checkProdutoByNome(
@@ -137,6 +140,20 @@ class entradaProdService {
 			throw new Error(
 				'Something went wrong in updateEntradaProdutoService'
 			)
+		}
+	}
+
+	async getProdutoByDateRange(startDate, endDate) {
+		try {
+			const entradaProdutoDbModules = new entradaProdDbModules()
+			const Produto = await entradaProdutoDbModules.getProdutoByDateRange(
+				startDate,
+				endDate
+			)
+			return Produto
+		} catch (err) {
+			console.log(err.message)
+			throw new Error('Something went wrong')
 		}
 	}
 }
