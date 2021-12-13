@@ -122,14 +122,22 @@ class SaidaCobrancaDbModules {
 
 	async getCobrancaByDateRange(startDate, endDate) {
 		try {
+			const parseStartDate = new Date(startDate)
+			const firstDate = new Date(parseStartDate)
+			firstDate.setUTCHours(0, 0, 0)
+
+			const parseFinalDate = new Date(endDate)
+			const Finaldate = new Date(parseFinalDate)
+			Finaldate.setUTCHours(23, 59, 59)
+
 			const itens = await dbConnect('saidaCobranca')
-				.where('created_at', '>=', startDate)
-				.where('created_at', '<=', endDate)
+				.where('created_at', '>=', firstDate)
+				.where('created_at', '<=', Finaldate)
 				.orderBy('created_at')
 			return itens
 		} catch (err) {
 			console.log(err.message)
-			throw new Error('Something went wrong in getCobrancaByDateRange')
+			throw new Error('Something went wrong')
 		}
 	}
 

@@ -131,13 +131,13 @@ router.get(
 	entradaCobranca.getAllCobrancas,
 	errorHandling.handleError
 )
-router.post(
-	'/saida/cobranca/relatorio',
+router.get(
+	'/saida/cobrancas/:startDate/:endDate',
 	saidaCobranca.getCobrancaByDate,
 	errorHandling.handleError
 )
-router.post(
-	'/entrada/cobranca/relatorio',
+router.get(
+	'/entrada/cobrancas/:startDate/:endDate',
 	entradaCobranca.getAllCobrancasByDate,
 	errorHandling.handleError
 )

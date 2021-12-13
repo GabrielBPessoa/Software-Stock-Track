@@ -77,7 +77,7 @@ class EntradaCobrancaService {
 	async getCobrancasByDate(dataInicio, dataFinal) {
 		try {
 			const cobrancaDbModules = new EntradaCobrancaDbModules()
-			const cobranca = await cobrancaDbModules.getCobrancasByDate(
+			const cobranca = await cobrancaDbModules.getCobrancaByDateRange(
 				dataInicio,
 				dataFinal
 			)
