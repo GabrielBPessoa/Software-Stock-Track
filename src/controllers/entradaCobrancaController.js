@@ -13,7 +13,7 @@ class EntradaCobrancaController {
 			return res.status(200).json(cobrancas)
 		} catch (err) {
 			console.log(err.message)
-			next(err)
+			throw new Error('Something went wrong')
 		}
 	}
 	async getAllCobrancasByDate(req, res, next) {
@@ -30,8 +30,7 @@ class EntradaCobrancaController {
 			}
 			return res.status(200).json(cobrancas)
 		} catch (err) {
-			console.log(err.message)
-			next(err)
+			throw new Error('Something went wrong')
 		}
 	}
 

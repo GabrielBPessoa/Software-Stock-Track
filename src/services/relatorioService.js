@@ -4,7 +4,6 @@ class Relatorio {
 	async orderProdutosByDate() {
 		try {
 			const itens = await dbConnect('entradaProd').orderBy('dataValidade')
-			console.log(itens)
 			if (!itens) {
 				return res.status(404).send({
 					message: 'No Itens Found',

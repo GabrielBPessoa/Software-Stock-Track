@@ -74,14 +74,15 @@ class ClienteController {
 				})
 			}
 
-			const checkCnpj = await clienteServices.getClienteByCnpj(
-				req.body.cnpj
-			)
-
-			if (checkCnpj.id !== checkClientExistence.id) {
-				return res.status(400).send({
-					message: 'Cnpj already Used',
-				})
+			if (req.body.cnpj) {
+				const checkCnpj = await clienteServices.getClienteByCnpj(
+					req.body.cnpj
+				)
+				if (checkCnpj.id !== checkClientExistence.id) {
+					return res.status(400).send({
+						message: 'Cnpj already Used',
+					})
+				}
 			}
 
 			return res.status(200).json(updatedCliente)

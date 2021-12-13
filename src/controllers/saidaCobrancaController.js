@@ -13,7 +13,7 @@ class SaidaCobrancaController {
 			return res.status(200).json(cobrancas)
 		} catch (err) {
 			console.log(err.message)
-			next(err)
+			throw new Error('Something went wrong')
 		}
 	}
 	async getCobrancaByDate(req, res, next) {
@@ -31,7 +31,7 @@ class SaidaCobrancaController {
 			return res.status(200).json(cobrancas)
 		} catch (err) {
 			console.log(err.message)
-			next(err)
+			throw new Error('Something went wrong')
 		}
 	}
 
