@@ -1,5 +1,3 @@
-import { dateFns } from 'date-fns'
-
 exports.up = function (knex) {
 	return knex.schema.createTable('saidaProd', (table) => {
 		table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'))
