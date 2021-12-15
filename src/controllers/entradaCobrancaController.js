@@ -17,8 +17,7 @@ class EntradaCobrancaController {
 					total += cobrancas[i].valor
 				}
 			}
-			cobrancas.push({ total })
-			return res.status(200).json(cobrancas)
+			return res.status(200).json({ cobrancas, total })
 		} catch (err) {
 			console.log(err.message)
 			throw new Error('Something went wrong')
