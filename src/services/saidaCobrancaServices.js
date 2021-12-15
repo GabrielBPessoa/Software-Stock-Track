@@ -31,13 +31,6 @@ class SaidaCobrancaService {
 		try {
 			const cobrancaDbModules = new SaidaCobrancaDbModules()
 			const cobrancas = await cobrancaDbModules.getCobrancas()
-			let total = 0
-			for (let i = 0; i < cobrancas.length; i++) {
-				if (cobrancas[i].status === 'PENDENTE') {
-					total += cobrancas[i].valor
-				}
-			}
-			cobrancas.push({ total })
 			return cobrancas
 		} catch (err) {
 			console.log(err.message)
@@ -72,11 +65,11 @@ class SaidaCobrancaService {
 	async getCobrancaByDateRange(startDate, endDate) {
 		try {
 			const cobrancaDbModules = new SaidaCobrancaDbModules()
-			const cobranca = await cobrancaDbModules.getCobrancaByDateRange(
+			const cobrancas = await cobrancaDbModules.getCobrancaByDateRange(
 				startDate,
 				endDate
 			)
-			return cobranca
+			return cobrancas
 		} catch (err) {
 			console.log(err.message)
 			throw new Error('Something went wrong in getCobrancaById')

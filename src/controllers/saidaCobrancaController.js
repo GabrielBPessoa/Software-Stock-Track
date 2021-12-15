@@ -10,6 +10,15 @@ class SaidaCobrancaController {
 					error: 'Cobrancas not found.',
 				})
 			}
+
+			let total = 0
+			for (let i = 0; i < cobrancas.length; i++) {
+				if (cobrancas[i].status === 'PENDENTE') {
+					total += cobrancas[i].valor
+				}
+			}
+			cobrancas.push({ total })
+
 			return res.status(200).json(cobrancas)
 		} catch (err) {
 			console.log(err.message)
@@ -28,6 +37,15 @@ class SaidaCobrancaController {
 					error: 'Cobrancas not found.',
 				})
 			}
+
+			let total = 0
+			for (let i = 0; i < cobrancas.length; i++) {
+				if (cobrancas[i].status === 'PENDENTE') {
+					total += cobrancas[i].valor
+				}
+			}
+			cobrancas.push({ total })
+
 			return res.status(200).json(cobrancas)
 		} catch (err) {
 			console.log(err.message)
